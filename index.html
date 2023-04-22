@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <title>Multi-step form</title>
+    <link rel="stylesheet" href="styels.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  </head>
+  <body>
+    <main class="main">
+      <div class="primary-container">
+        <div class="side-bar-desktop">
+          <div class="progress">
+            <p class="number progress-active">1</p>
+            <div class="steps">
+              <p class="step-title">Step 1</p>
+              <p class="step-description">Your info</p>
+            </div>
+          </div>
+
+          <div class="progress">
+            <p class="number">2</p>
+            <div class="steps">
+              <p class="step-title">Step 2</p>
+              <p class="step-description">Select Plan</p>
+            </div>
+          </div>
+
+          <div class="progress">
+            <p class="number">3</p>
+            <div class="steps">
+              <p class="step-title">Step 3</p>
+              <p class="step-description">ad-ons</p>
+            </div>
+          </div>
+
+          <div class="progress">
+            <p class="number">4</p>
+            <div class="steps">
+              <p class="step-title">Step 4</p>
+              <p class="step-description">Summary</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="main-container">
+          <div class="form-wrapper">
+            <div class="form-slide">
+              <h1 class="page-heading">Personal info</h1>
+              <p class="page-description">
+                Please provide your name, email address and phone number
+              </p>
+              <form action="" class="form-container">
+                <label for="name">name</label>
+                <p class="form-error">This field is required</p>
+                <br />
+                <input type="text" id="name" placeholder="eg. Stephen King" />
+
+                <br />
+                <label for="email">email</label>
+                <p class="form-error">This field is required</p>
+                <br />
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="eg. StephenKing@lorem.com"
+                />
+                <br />
+                <label for="number">number</label>
+                <p class="form-error">This field is required</p>
+                <br />
+                <input
+                  type="number"
+                  id="number"
+                  placeholder="eg. +1234456789"
+                />
+              </form>
+            </div>
+
+            <div class="form-slide">
+              <h1 class="page-heading">Select Your Plan</h1>
+              <p class="page-description">
+                You have the option of monthly or yearly billing
+              </p>
+              <div class="sub-grid">
+                <div class="grid-card">
+                  <img
+                    src="./assets/images/icon-arcade.svg"
+                    alt=""
+                    class="sub-icon"
+                  />
+                  <h3 class="sub-title">Arcade</h3>
+                  <p class="sub-pricing">$9/mo</p>
+                </div>
+                <div class="grid-card">
+                  <img
+                    src="./assets/images/icon-advanced.svg"
+                    alt=""
+                    class="sub-icon"
+                  />
+                  <h3 class="sub-title">Advanced</h3>
+                  <p class="sub-pricing">$12/mo</p>
+                </div>
+                <div class="grid-card">
+                  <img
+                    src="./assets/images/icon-pro.svg"
+                    alt=""
+                    class="sub-icon"
+                  />
+                  <h3 class="sub-title">Pro</h3>
+                  <p class="sub-pricing">$15/mo</p>
+                </div>
+              </div>
+              <div class="month-year">
+                <p class="month">Month</p>
+                <div class="toggle">
+                  <input type="checkbox" class="toggle-input" id="toggle" />
+                  <label for="toggle" class="toggle-label">
+                    <span class="toggle-icon"></span>
+                  </label>
+                </div>
+                <p class="year">Year</p>
+              </div>
+            </div>
+
+            <div class="form-slide">
+              <h1 class="page-heading">Pick add-ons</h1>
+              <p class="page-description">
+                Add-ons help enhance your gaming experience =
+              </p>
+              <div class="add-ons-container">
+                <div class="add-on">
+                  <input type="checkbox" class="check-box" />
+                  <div class="add-on-service">
+                    <h4 class="service-title">Online Service</h4>
+                    <p class="service-desc">Access to multiplayer games</p>
+                  </div>
+                  <p class="add-On-pricing">$1/mo</p>
+                </div>
+
+                <div class="add-on">
+                  <input type="checkbox" class="check-box" />
+                  <div class="add-on-service">
+                    <h4 class="service-title">Larger storage</h4>
+                    <p class="service-desc">Extra 1TB of cloud save</p>
+                  </div>
+                  <p class="add-On-pricing">$2/mo</p>
+                </div>
+
+                <div class="add-on">
+                  <input type="checkbox" class="check-box" />
+                  <div class="add-on-service">
+                    <h4 class="service-title">Customizable Profile</h4>
+                    <p class="service-desc">Custom theme on your profile</p>
+                  </div>
+                  <p class="add-On-pricing">$2/mo</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-slide">
+              <h1 class="page-heading">Finishing Up</h1>
+              <p class="page-description">
+                Double check everything looks OK before confirming
+              </p>
+              <div class="check-out-container">
+                <div class="check-out">
+                  <div class="check-out-item">
+                    <h4 class="service-title">
+                      Arcade (Monthly)
+                      <p class="change-plan">Change</p>
+                    </h4>
+                    <h4 class="plan-price">$9/mo</h4>
+                  </div>
+                  <hr />
+                  <div class="check-out-add-ons">
+                    <p class="add-ons">Online service</p>
+                    <h4 class="add-on-pricing">+$1/mo</h4>
+                  </div>
+                  <div class="check-out-add-ons">
+                    <p class="add-ons">Larger storage</p>
+                    <h4 class="add-on-pricing">+$2/mo</h4>
+                  </div>
+                </div>
+                <div class="total-container">
+                  <p class="total-title">Total(per month)</p>
+                  <h4 class="total-price">+$12/mo</h4>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-slide">
+              <div class="success-container">
+                <img
+                  src="./assets/images/icon-thank-you.svg"
+                  alt=""
+                  class="successfull"
+                />
+
+                <h1>Thank You!</h1>
+                <p class="write-up">
+                  Thanks for confirming your subscription! We hope you have fun
+                  using our platform. If you ever need support, please feel free
+                  to email us at support@loremgaming.com
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="next-prev">
+            <button class="prev">Go Back</button>
+            <button class="Next">Next</button>
+
+            <button class="confirm">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
