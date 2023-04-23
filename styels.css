@@ -48,7 +48,7 @@ body {
   display: flex;
   align-items: flex-start;
   /* justify-content: space-between; */
-  height: 80%;
+  height: 85%;
   width: 70%;
   padding: 1rem;
   background: #ffff;
@@ -332,7 +332,16 @@ body {
 .confirm:hover {
   background-color: #928cfe;
 }
+.plan-clicked {
+  background-color: #f8f9fe;
 
+  border: 1px solid #4e4aae;
+}
+.plan-error {
+  color: red;
+  font-size: 0.9rem;
+  display: none;
+}
 /*================================================== MEDIA QUERIES====================================================== */
 @media (max-width: 900px) {
   .primary-container {
@@ -378,8 +387,5 @@ body {
   }
   .steps {
     display: none;
-  }
-  .form-wrapper {
-    /* height: 100%; */
   }
 }

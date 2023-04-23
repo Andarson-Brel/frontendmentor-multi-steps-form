@@ -12,6 +12,9 @@ const confirmBtn = document.querySelector(".confirm");
 
 const numberIndicator = document.querySelectorAll(".number");
 
+const plans = document.querySelectorAll(".grid-card");
+
+const planError = document.querySelector(".plan-error");
 function validateEmail(email) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   //   console.log(regex);
@@ -24,10 +27,24 @@ function validatePhone(number) {
 }
 const validPhone = validatePhone(phoneNumber.value);
 
-// prevBtn.addEventListener("click", () => {
-//   currentSlide--;
-//   showSlide();
-// });
+let selectedPlan = null;
+plans.forEach((plan) => {
+  plan.addEventListener("click", () => {
+    // remove the class from all plans
+
+    plans.forEach((p) => {
+      p.classList.remove("plan-clicked");
+    });
+    // add the class to the clicked plan
+    plan.classList.add("plan-clicked");
+    planError.style.display = "none";
+    // console.log(indexOf(plan));
+
+    // store a reference to the clicked plan
+    selectedPlan = plan;
+  });
+});
+
 confirmBtn.addEventListener("click", () => {
   if (currentSlide < slides.length - 1) {
     currentSlide++;
@@ -42,10 +59,7 @@ prevBtn.addEventListener("click", () => {
 
 nextBtn.addEventListener("click", () => {
   const isValidEmail = validateEmail(emailInput.value);
-  numberIndicator.forEach((number) => {
-    if (number === currentSlide) {
-    }
-  });
+
   if (
     nameInput.value === "" &&
     emailInput.value === "" &&
@@ -90,6 +104,8 @@ nextBtn.addEventListener("click", () => {
     formError[1].textContent = "Not valid email";
     formError[0].style.display = "none";
     formError[2].style.display = "none";
+  } else if (currentSlide === 1 && !selectedPlan) {
+    planError.style.display = "block";
   } else {
     formError.forEach((error) => {
       error.style.display = "none";
