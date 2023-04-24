@@ -13,6 +13,8 @@ const confirmBtn = document.querySelector(".confirm");
 const numberIndicator = document.querySelectorAll(".number");
 
 const plans = document.querySelectorAll(".grid-card");
+const serviceTitle = document.querySelector(".servicetitle");
+const planPrice = document.querySelector(".plan-price");
 
 const planError = document.querySelector(".plan-error");
 function validateEmail(email) {
@@ -27,11 +29,145 @@ function validatePhone(number) {
 }
 const validPhone = validatePhone(phoneNumber.value);
 
+const checkboxes = document.querySelectorAll(".check-box");
+const serviceTitles = document.querySelectorAll(".service-title");
+const addOnPricings = document.querySelectorAll(".add-On-pricing");
+
+const checkOutContainer = document.querySelector(".check-out");
+
+// =======================SELECTORS FOR CALCULATIONS============================
+
+const toggleLabel = document.querySelector(".toggle-label");
+const toggleInput = document.querySelector(".toggle-input");
+const yearLabel = document.querySelector(".year");
+const monthLabel = document.querySelector(".month");
+const subPrice = document.querySelectorAll(".sub-price");
+const addOnPrice = document.querySelectorAll(".add-On-price");
+const planPricing = document.querySelector(".plan-pricing");
+const total = document.querySelector(".total");
+
+// function planMath() {
+
+// }
+
+checkboxes.forEach((checkbox, index) => {
+  checkbox.addEventListener("change", () => {
+    if (checkbox.checked) {
+      // Get the service title and add-on pricing for this checkbox
+      const serviceTit = serviceTitles[index].textContent;
+      const addOnPricing = addOnPricings[index].textContent;
+
+      // Create a new checkout add-ons container
+      const newContainer = document.createElement("div");
+      newContainer.classList.add("check-out-add-ons");
+
+      // Create a new add-ons element with the service title and add-on pricing
+      const addOns = document.createElement("p");
+      addOns.classList.add("add-ons");
+      addOns.textContent = serviceTit;
+      newContainer.appendChild(addOns);
+
+      // Create a new add-ons pricing element with the add-on pricing
+      const addOnsPricing = document.createElement("h4");
+      addOnsPricing.classList.add("add-ons-pricing");
+      addOnsPricing.textContent = addOnPricing;
+      newContainer.appendChild(addOnsPricing);
+
+      // Add the new container to the check-out container
+      checkOutContainer.appendChild(newContainer);
+    } else {
+      // Remove the corresponding checkout add-ons container
+      const containerToRemove = document.querySelector(".check-out-add-ons");
+      if (containerToRemove) {
+        containerToRemove.remove();
+      }
+    }
+  });
+});
+
 let selectedPlan = null;
-plans.forEach((plan) => {
+
+toggleLabel.addEventListener("click", () => {
+  setTimeout(() => {
+    if (toggleInput.checked) {
+      monthLabel.style.color = "#aeaeba";
+      monthLabel.style.fontWeight = "normal";
+      yearLabel.style.color = "#04295d";
+      yearLabel.style.fontWeight = "bolder";
+    } else {
+      yearLabel.style.color = "#aeaeba";
+      yearLabel.style.fontWeight = "normal";
+      monthLabel.style.color = "#04295d";
+      monthLabel.style.fontWeight = "bolder";
+    }
+  }, 10);
+});
+
+// get all the grid cards
+// get all the grid cards
+const gridCards = document.querySelectorAll(".grid-card");
+
+// loop through each grid card
+gridCards.forEach((card, index) => {
+  // get the sub pricing and plan price elements
+  const subPricing = card.querySelector(".sub-pricing .sub-price");
+  const planPrice = document.querySelector(".plan-price");
+
+  // set the initial plan price to the sub pricing of this card
+  planPrice.textContent = subPricing.textContent;
+
+  // attach a click event listener to the card
+  card.addEventListener("click", () => {
+    // update the plan price to the sub pricing of this card
+    planPrice.textContent = subPricing.textContent;
+
+    // call the toggleLabelClickHandler with the subPricing element
+    toggleLabelClickHandler(subPricing);
+  });
+
+  // define an event handler for the toggle label click
+  const toggleLabelClickHandler = (subPriceElement) => {
+    // check if the toggle input is checked
+    if (toggleInput.checked) {
+      // update the plan price to the multiplied sub pricing of this card
+      planPrice.textContent = subPriceElement.textContent * 10;
+    } else {
+      // update the plan price to the sub pricing of this card
+      planPrice.textContent = subPriceElement.textContent;
+    }
+  };
+
+  // attach a click event listener to the toggle label
+  toggleLabel.addEventListener("click", (event) => {
+    // prevent the default behavior of the checkbox from toggling
+    event.preventDefault();
+
+    // call the toggleLabelClickHandler with the subPricing element
+    toggleLabelClickHandler(subPricing);
+
+    // toggle the checkbox state
+    toggleInput.checked = !toggleInput.checked;
+  });
+});
+
+numberIndicator.forEach((number, index) => {
+  number.addEventListener("click", () => {
+    currentSlide = index;
+    showSlide();
+  });
+});
+plans.forEach((plan, index) => {
   plan.addEventListener("click", () => {
     // remove the class from all plans
-
+    if (toggleInput.checked) {
+      let calculatedPanPrice = subPrice[index].textContent * 10;
+      const newpric = (document.querySelector(
+        ".plan-price"
+      ).textContent = `$${calculatedPanPrice}/Yr`);
+      console.log(newpric);
+    } else {
+      planPrice.textContent = plan.querySelector(".sub-pricing").textContent;
+    }
     plans.forEach((p) => {
       p.classList.remove("plan-clicked");
     });
@@ -41,6 +177,8 @@ plans.forEach((plan) => {
     // console.log(indexOf(plan));
 
     // store a reference to the clicked plan
+    serviceTitle.textContent = plan.querySelector(".sub-title").textContent;
+
     selectedPlan = plan;
   });
 });
