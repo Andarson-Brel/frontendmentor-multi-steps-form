@@ -103,53 +103,6 @@ toggleLabel.addEventListener("click", () => {
   }, 10);
 });
 
-// get all the grid cards
-// get all the grid cards
-const gridCards = document.querySelectorAll(".grid-card");
-
-// loop through each grid card
-gridCards.forEach((card, index) => {
-  // get the sub pricing and plan price elements
-  const subPricing = card.querySelector(".sub-pricing .sub-price");
-  const planPrice = document.querySelector(".plan-price");
-
-  // set the initial plan price to the sub pricing of this card
-  planPrice.textContent = subPricing.textContent;
-
-  // attach a click event listener to the card
-  card.addEventListener("click", () => {
-    // update the plan price to the sub pricing of this card
-    planPrice.textContent = subPricing.textContent;
-
-    // call the toggleLabelClickHandler with the subPricing element
-    toggleLabelClickHandler(subPricing);
-  });
-
-  // define an event handler for the toggle label click
-  const toggleLabelClickHandler = (subPriceElement) => {
-    // check if the toggle input is checked
-    if (toggleInput.checked) {
-      // update the plan price to the multiplied sub pricing of this card
-      planPrice.textContent = subPriceElement.textContent * 10;
-    } else {
-      // update the plan price to the sub pricing of this card
-      planPrice.textContent = subPriceElement.textContent;
-    }
-  };
-
-  // attach a click event listener to the toggle label
-  toggleLabel.addEventListener("click", (event) => {
-    // prevent the default behavior of the checkbox from toggling
-    event.preventDefault();
-
-    // call the toggleLabelClickHandler with the subPricing element
-    toggleLabelClickHandler(subPricing);
-
-    // toggle the checkbox state
-    toggleInput.checked = !toggleInput.checked;
-  });
-});
-
 numberIndicator.forEach((number, index) => {
   number.addEventListener("click", () => {
     currentSlide = index;
@@ -159,12 +112,16 @@ numberIndicator.forEach((number, index) => {
 plans.forEach((plan, index) => {
   plan.addEventListener("click", () => {
     // remove the class from all plans
-    if (toggleInput.checked) {
+
+    function planMath() {
       let calculatedPanPrice = subPrice[index].textContent * 10;
       const newpric = (document.querySelector(
         ".plan-price"
       ).textContent = `$${calculatedPanPrice}/Yr`);
-      console.log(newpric);
+      //   console.log(newpric);
+    }
+    if (toggleInput.checked) {
+      planMath();
     } else {
       planPrice.textContent = plan.querySelector(".sub-pricing").textContent;
     }
@@ -178,7 +135,16 @@ plans.forEach((plan, index) => {
 
     // store a reference to the clicked plan
     serviceTitle.textContent = plan.querySelector(".sub-title").textContent;
-
+    toggleLabel.addEventListener("click", () => {
+      setTimeout(() => {
+        if (selectedPlan && toggleInput.checked) {
+          planMath();
+        } else {
+          const monthlyPrice = subPrice[index].textContent;
+          planPrice.textContent = `$${monthlyPrice}/mo`;
+        }
+      }, 10);
+    });
     selectedPlan = plan;
   });
 });
@@ -187,6 +153,8 @@ confirmBtn.addEventListener("click", () => {
   if (currentSlide < slides.length - 1) {
     currentSlide++;
     showSlide();
+  } else {
+    planPrice.textContent = plan.querySelector(".sub-pricing").textContent;
   }
 });
 
