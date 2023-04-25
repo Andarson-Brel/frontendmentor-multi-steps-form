@@ -52,25 +52,66 @@ const total = document.querySelector(".total");
 
 checkboxes.forEach((checkbox, index) => {
   checkbox.addEventListener("change", () => {
-    if (checkbox.checked) {
-      // Get the service title and add-on pricing for this checkbox
-      const serviceTit = serviceTitles[index].textContent;
-      const addOnPricing = addOnPricings[index].textContent;
+    const serviceTit = serviceTitles[index].textContent;
+    const addOnPricing = addOnPricings[index].textContent;
+
+    function calculateadson() {
+      const calculatedaddon = addOnPrice[index].textContent * 10;
 
       // Create a new checkout add-ons container
       const newContainer = document.createElement("div");
       newContainer.classList.add("check-out-add-ons");
 
-      // Create a new add-ons element with the service title and add-on pricing
+      // Create a new add-ons element with the service title
       const addOns = document.createElement("p");
       addOns.classList.add("add-ons");
       addOns.textContent = serviceTit;
       newContainer.appendChild(addOns);
 
-      // Create a new add-ons pricing element with the add-on pricing
+      // Create a new add-ons pricing element with the calculated add-on pricing
       const addOnsPricing = document.createElement("h4");
       addOnsPricing.classList.add("add-ons-pricing");
-      addOnsPricing.textContent = addOnPricing;
+
+      const priceSpan = document.createElement("span");
+      priceSpan.classList.add("adon-price");
+      priceSpan.textContent = `${calculatedaddon}`;
+      addOnsPricing.appendChild(document.createTextNode("$"));
+      addOnsPricing.appendChild(priceSpan);
+      addOnsPricing.appendChild(document.createTextNode("/yr"));
+
+      newContainer.appendChild(addOnsPricing);
+
+      // Add the new container to the check-out container
+      checkOutContainer.appendChild(newContainer);
+    }
+
+    if (toggleInput.checked && checkbox.checked) {
+      calculateadson();
+    } else if (checkbox.checked) {
+      // Get the service title and add-on pricing for this checkbox
+
+      // Create a new checkout add-ons container
+      // Create a new checkout add-ons container
+      const newContainer = document.createElement("div");
+      newContainer.classList.add("check-out-add-ons");
+
+      // Create a new add-ons element with the service title
+      const addOns = document.createElement("p");
+      addOns.classList.add("add-ons");
+      addOns.textContent = serviceTit;
+      newContainer.appendChild(addOns);
+
+      // Create a new add-ons pricing element with the calculated add-on pricing
+      const addOnsPricing = document.createElement("h4");
+      addOnsPricing.classList.add("add-ons-pricing");
+
+      const priceSpan = document.createElement("span");
+      priceSpan.classList.add("adon-price");
+      priceSpan.textContent = addOnPrice[index].textContent;
+      addOnsPricing.appendChild(document.createTextNode("$"));
+      addOnsPricing.appendChild(priceSpan);
+      addOnsPricing.appendChild(document.createTextNode("/yr"));
+
       newContainer.appendChild(addOnsPricing);
 
       // Add the new container to the check-out container
@@ -112,18 +153,18 @@ numberIndicator.forEach((number, index) => {
 plans.forEach((plan, index) => {
   plan.addEventListener("click", () => {
     // remove the class from all plans
-
+    console.log();
     function planMath() {
       let calculatedPanPrice = subPrice[index].textContent * 10;
-      const newpric = (document.querySelector(
-        ".plan-price"
-      ).textContent = `$${calculatedPanPrice}/Yr`);
+      const newpric = (planPricing.textContent = calculatedPanPrice);
+      console.log(newpric);
+      return newpric;
       //   console.log(newpric);
     }
     if (toggleInput.checked) {
       planMath();
     } else {
-      planPrice.textContent = plan.querySelector(".sub-pricing").textContent;
+      planPricing.textContent = plan.querySelector(".sub-price").textContent;
     }
     plans.forEach((p) => {
       p.classList.remove("plan-clicked");
@@ -141,7 +182,7 @@ plans.forEach((plan, index) => {
           planMath();
         } else {
           const monthlyPrice = subPrice[index].textContent;
-          planPrice.textContent = `$${monthlyPrice}/mo`;
+          planPricing.textContent = `${monthlyPrice}`;
         }
       }, 10);
     });
