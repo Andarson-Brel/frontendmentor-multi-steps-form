@@ -49,6 +49,17 @@ const total = document.querySelector(".total");
 // function planMath() {
 
 // }
+function updateTotal() {
+  const planPriceValue = parseFloat(planPricing.textContent.replace("$", ""));
+  const addOnPriceValue =
+    document.querySelectorAll(".adon-price").length > 0
+      ? Array.from(document.querySelectorAll(".adon-price"))
+          .map((span) => parseFloat(span.textContent))
+          .reduce((acc, price) => acc + price)
+      : 0;
+  const totalValue = planPriceValue + addOnPriceValue;
+  total.textContent = "$" + totalValue;
+}
 
 checkboxes.forEach((checkbox, index) => {
   checkbox.addEventListener("change", () => {
@@ -85,12 +96,27 @@ checkboxes.forEach((checkbox, index) => {
       checkOutContainer.appendChild(newContainer);
     }
 
+    toggleLabel.addEventListener("click", () => {
+      // Remove the corresponding checkout add-ons container
+      const containerToRemove = document.querySelector(".check-out-add-ons");
+      if (containerToRemove) {
+        containerToRemove.remove();
+      }
+
+      setTimeout(() => {
+        if (toggleInput.checked && checkbox.checked) {
+          calculateadson();
+        }
+      }, 10);
+    });
+
     if (toggleInput.checked && checkbox.checked) {
       calculateadson();
     } else if (checkbox.checked) {
+      // Remove the corresponding checkout add-ons container
+
       // Get the service title and add-on pricing for this checkbox
 
-      // Create a new checkout add-ons container
       // Create a new checkout add-ons container
       const newContainer = document.createElement("div");
       newContainer.classList.add("check-out-add-ons");
