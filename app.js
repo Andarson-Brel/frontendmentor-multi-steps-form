@@ -19,7 +19,7 @@ const planPrice = document.querySelector(".plan-price");
 const planError = document.querySelector(".plan-error");
 function validateEmail(email) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   console.log(regex);
+
   return regex.test(email);
 }
 const isValidEmail = validateEmail(emailInput.value);
@@ -46,20 +46,7 @@ const addOnPrice = document.querySelectorAll(".add-On-price");
 const planPricing = document.querySelector(".plan-pricing");
 const total = document.querySelector(".total");
 
-// function planMath() {
-
-// }
-function updateTotal() {
-  const planPriceValue = parseFloat(planPricing.textContent.replace("$", ""));
-  const addOnPriceValue =
-    document.querySelectorAll(".adon-price").length > 0
-      ? Array.from(document.querySelectorAll(".adon-price"))
-          .map((span) => parseFloat(span.textContent))
-          .reduce((acc, price) => acc + price)
-      : 0;
-  const totalValue = planPriceValue + addOnPriceValue;
-  total.textContent = "$" + totalValue;
-}
+const changePlan = document.querySelector(".change-plan");
 
 checkboxes.forEach((checkbox, index) => {
   checkbox.addEventListener("change", () => {
@@ -98,14 +85,47 @@ checkboxes.forEach((checkbox, index) => {
 
     toggleLabel.addEventListener("click", () => {
       // Remove the corresponding checkout add-ons container
-      const containerToRemove = document.querySelector(".check-out-add-ons");
-      if (containerToRemove) {
-        containerToRemove.remove();
-      }
 
       setTimeout(() => {
-        if (toggleInput.checked && checkbox.checked) {
+        if (toggleInput.checked) {
+          const containerToRemove =
+            document.querySelector(".check-out-add-ons");
+          if (containerToRemove) {
+            containerToRemove.remove();
+          }
           calculateadson();
+        } else if (toggleInput.checked && checkbox.checked) {
+          calculateadson();
+        } else {
+          const containerToRemove =
+            document.querySelector(".check-out-add-ons");
+          if (containerToRemove) {
+            containerToRemove.remove();
+          }
+          const newContainer = document.createElement("div");
+          newContainer.classList.add("check-out-add-ons");
+
+          // Create a new add-ons element with the service title
+          const addOns = document.createElement("p");
+          addOns.classList.add("add-ons");
+          addOns.textContent = serviceTit;
+          newContainer.appendChild(addOns);
+
+          // Create a new add-ons pricing element with the calculated add-on pricing
+          const addOnsPricing = document.createElement("h4");
+          addOnsPricing.classList.add("add-ons-pricing");
+
+          const priceSpan = document.createElement("span");
+          priceSpan.classList.add("adon-price");
+          priceSpan.textContent = addOnPrice[index].textContent;
+          addOnsPricing.appendChild(document.createTextNode("$"));
+          addOnsPricing.appendChild(priceSpan);
+          addOnsPricing.appendChild(document.createTextNode("/yr"));
+
+          newContainer.appendChild(addOnsPricing);
+
+          // Add the new container to the check-out container
+          checkOutContainer.appendChild(newContainer);
         }
       }, 10);
     });
@@ -179,13 +199,12 @@ numberIndicator.forEach((number, index) => {
 plans.forEach((plan, index) => {
   plan.addEventListener("click", () => {
     // remove the class from all plans
-    console.log();
+
     function planMath() {
       let calculatedPanPrice = subPrice[index].textContent * 10;
       const newpric = (planPricing.textContent = calculatedPanPrice);
-      console.log(newpric);
+
       return newpric;
-      //   console.log(newpric);
     }
     if (toggleInput.checked) {
       planMath();
@@ -198,7 +217,6 @@ plans.forEach((plan, index) => {
     // add the class to the clicked plan
     plan.classList.add("plan-clicked");
     planError.style.display = "none";
-    // console.log(indexOf(plan));
 
     // store a reference to the clicked plan
     serviceTitle.textContent = plan.querySelector(".sub-title").textContent;
@@ -247,7 +265,7 @@ nextBtn.addEventListener("click", () => {
     phoneNumber.value !== ""
   ) {
     formError[0].style.display = "inline";
-    // formError[1].textContent = "Not valid email";
+
     formError[1].style.display = "none";
     formError[2].style.display = "none";
   } else if (
@@ -256,7 +274,7 @@ nextBtn.addEventListener("click", () => {
     phoneNumber.value !== ""
   ) {
     formError[1].style.display = "inline";
-    // formError[1].textContent = "Not valid email";
+
     formError[0].style.display = "none";
     formError[2].style.display = "none";
   } else if (
@@ -265,7 +283,7 @@ nextBtn.addEventListener("click", () => {
     phoneNumber.value === ""
   ) {
     formError[2].style.display = "inline";
-    // formError[1].textContent = "Not valid email";
+
     formError[0].style.display = "none";
     formError[1].style.display = "none";
   } else if (
@@ -306,9 +324,24 @@ function showSlide() {
   });
 
   if (currentSlide === 3) {
+    changePlan.addEventListener("click", () => {
+      currentSlide = 1; // Update current slide index to 1 (Slide 2)
+      showSlide(); // Show slide 2
+    });
+
     confirmBtn.style.display = "block";
     prevBtn.style.display = "none";
     nextBtn.style.display = "none";
+
+    const planPriceValue = parseFloat(planPricing.textContent.replace("$", ""));
+    const addOnPriceValue =
+      document.querySelectorAll(".adon-price").length > 0
+        ? Array.from(document.querySelectorAll(".adon-price"))
+            .map((span) => parseFloat(span.textContent))
+            .reduce((acc, price) => acc + price)
+        : 0;
+    const totalValue = planPriceValue + addOnPriceValue;
+    total.textContent = totalValue;
   } else if (currentSlide > 3) {
     confirmBtn.style.display = "none";
     prevBtn.style.display = "none";
