@@ -91,7 +91,7 @@ body {
 .form-container label {
   color: #3f5a87;
   text-transform: capitalize;
-  margin: 1rem 0;
+  /* margin: 1rem 0; */
 }
 .form-container input {
   padding: 0.8rem 1rem;
@@ -355,7 +355,7 @@ body {
     width: 90%;
   }
   .main-container {
-    height: 85%;
+    /* height: 80%; */
 
     width: 60%;
   }
@@ -365,16 +365,22 @@ body {
     margin: 1rem 0;
   }
   .grid-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     padding: 0.5rem;
     margin: 0;
   }
   .sub-grid {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
   .next-prev {
-    position: absolute;
-    bottom: 10px;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
     left: 0;
+    background-color: #fff;
   }
   .primary-container {
     width: 95%;
@@ -435,5 +441,17 @@ body {
   .service-desc,
   .add-On-pricing {
     font-size: 0.7rem;
+  }
+  .sub-title {
+    margin: 0.3rem 0;
+  }
+  .grid-card img {
+    width: 30px;
+  }
+  .Next {
+    padding: 0.5rem 1rem;
+  }
+  .page-description {
+    margin: 0.6rem 0;
   }
 }
